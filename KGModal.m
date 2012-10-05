@@ -106,7 +106,7 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
                 [UIView animateWithDuration:kTransformPart2AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
                     containerView.alpha = 1;
                     containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-                } completion:^(BOOL finished) {
+                } completion:^(BOOL finished2) {
                     containerView.layer.shouldRasterize = NO;
                 }];
             }];
@@ -146,7 +146,7 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
         [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
             self.containerView.alpha = 0;
             self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
-        } completion:^(BOOL finished){
+        } completion:^(BOOL finished2){
             [self cleanup];
         }];
     }];

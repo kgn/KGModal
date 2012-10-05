@@ -7,31 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		731C4416161F94B300FFF7A2 /* KGModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 731C4415161F94B300FFF7A2 /* KGModal.m */; };
+		731C441B161F94C000FFF7A2 /* KGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 731C4418161F94C000FFF7A2 /* KGAppDelegate.m */; };
+		731C441C161F94C000FFF7A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 731C441A161F94C000FFF7A2 /* main.m */; };
+		731C4420161F958600FFF7A2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 731C441D161F958600FFF7A2 /* Default-568h@2x.png */; };
+		731C4421161F958600FFF7A2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 731C441E161F958600FFF7A2 /* Default.png */; };
+		731C4422161F958600FFF7A2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 731C441F161F958600FFF7A2 /* Default@2x.png */; };
 		73C8D4DF161F70CA007F378A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C8D4DE161F70CA007F378A /* UIKit.framework */; };
 		73C8D4E1161F70CA007F378A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C8D4E0161F70CA007F378A /* Foundation.framework */; };
 		73C8D4E3161F70CA007F378A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C8D4E2161F70CA007F378A /* CoreGraphics.framework */; };
-		73C8D4E9161F70CA007F378A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73C8D4E7161F70CA007F378A /* InfoPlist.strings */; };
-		73C8D4EB161F70CA007F378A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C8D4EA161F70CA007F378A /* main.m */; };
-		73C8D4EF161F70CA007F378A /* KGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C8D4EE161F70CA007F378A /* KGAppDelegate.m */; };
-		73C8D4F1161F70CA007F378A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C8D4F0161F70CA007F378A /* Default.png */; };
-		73C8D4F3161F70CA007F378A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C8D4F2161F70CA007F378A /* Default@2x.png */; };
-		73C8D4F5161F70CA007F378A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C8D4F4161F70CA007F378A /* Default-568h@2x.png */; };
+		73C8D4FF161F7EC1007F378A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C8D4FE161F7EC1007F378A /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		73C8D4DA161F70CA007F378A /* KGModal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGModal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		731C4414161F94B300FFF7A2 /* KGModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KGModal.h; path = ../KGModal.h; sourceTree = "<group>"; };
+		731C4415161F94B300FFF7A2 /* KGModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KGModal.m; path = ../KGModal.m; sourceTree = "<group>"; };
+		731C4417161F94C000FFF7A2 /* KGAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGAppDelegate.h; sourceTree = "<group>"; };
+		731C4418161F94C000FFF7A2 /* KGAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGAppDelegate.m; sourceTree = "<group>"; };
+		731C441A161F94C000FFF7A2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		731C441D161F958600FFF7A2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		731C441E161F958600FFF7A2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		731C441F161F958600FFF7A2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		73C8D4DA161F70CA007F378A /* KGModalExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGModalExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C8D4DE161F70CA007F378A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		73C8D4E0161F70CA007F378A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		73C8D4E2161F70CA007F378A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		73C8D4E6161F70CA007F378A /* KGModal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KGModal-Info.plist"; sourceTree = "<group>"; };
-		73C8D4E8161F70CA007F378A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		73C8D4EA161F70CA007F378A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		73C8D4EC161F70CA007F378A /* KGModal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KGModal-Prefix.pch"; sourceTree = "<group>"; };
-		73C8D4ED161F70CA007F378A /* KGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KGAppDelegate.h; sourceTree = "<group>"; };
-		73C8D4EE161F70CA007F378A /* KGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KGAppDelegate.m; sourceTree = "<group>"; };
-		73C8D4F0161F70CA007F378A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		73C8D4F2161F70CA007F378A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		73C8D4F4161F70CA007F378A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		73C8D4FE161F7EC1007F378A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C8D4FF161F7EC1007F378A /* QuartzCore.framework in Frameworks */,
 				73C8D4DF161F70CA007F378A /* UIKit.framework in Frameworks */,
 				73C8D4E1161F70CA007F378A /* Foundation.framework in Frameworks */,
 				73C8D4E3161F70CA007F378A /* CoreGraphics.framework in Frameworks */,
@@ -48,10 +50,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73B7BEEE161F95D000024C46 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				731C441D161F958600FFF7A2 /* Default-568h@2x.png */,
+				731C441E161F958600FFF7A2 /* Default.png */,
+				731C441F161F958600FFF7A2 /* Default@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		73C8D4CF161F70CA007F378A = {
 			isa = PBXGroup;
 			children = (
-				73C8D4E4161F70CA007F378A /* KGModal */,
+				731C4414161F94B300FFF7A2 /* KGModal.h */,
+				731C4415161F94B300FFF7A2 /* KGModal.m */,
+				731C4417161F94C000FFF7A2 /* KGAppDelegate.h */,
+				731C4418161F94C000FFF7A2 /* KGAppDelegate.m */,
+				731C441A161F94C000FFF7A2 /* main.m */,
+				73B7BEEE161F95D000024C46 /* Resources */,
 				73C8D4DD161F70CA007F378A /* Frameworks */,
 				73C8D4DB161F70CA007F378A /* Products */,
 			);
@@ -60,7 +77,7 @@
 		73C8D4DB161F70CA007F378A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				73C8D4DA161F70CA007F378A /* KGModal.app */,
+				73C8D4DA161F70CA007F378A /* KGModalExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,40 +88,17 @@
 				73C8D4DE161F70CA007F378A /* UIKit.framework */,
 				73C8D4E0161F70CA007F378A /* Foundation.framework */,
 				73C8D4E2161F70CA007F378A /* CoreGraphics.framework */,
+				73C8D4FE161F7EC1007F378A /* QuartzCore.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		73C8D4E4161F70CA007F378A /* KGModal */ = {
-			isa = PBXGroup;
-			children = (
-				73C8D4ED161F70CA007F378A /* KGAppDelegate.h */,
-				73C8D4EE161F70CA007F378A /* KGAppDelegate.m */,
-				73C8D4E5161F70CA007F378A /* Supporting Files */,
-			);
-			path = KGModal;
-			sourceTree = "<group>";
-		};
-		73C8D4E5161F70CA007F378A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				73C8D4E6161F70CA007F378A /* KGModal-Info.plist */,
-				73C8D4E7161F70CA007F378A /* InfoPlist.strings */,
-				73C8D4EA161F70CA007F378A /* main.m */,
-				73C8D4EC161F70CA007F378A /* KGModal-Prefix.pch */,
-				73C8D4F0161F70CA007F378A /* Default.png */,
-				73C8D4F2161F70CA007F378A /* Default@2x.png */,
-				73C8D4F4161F70CA007F378A /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		73C8D4D9161F70CA007F378A /* KGModal */ = {
+		73C8D4D9161F70CA007F378A /* KGModalExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73C8D4F8161F70CA007F378A /* Build configuration list for PBXNativeTarget "KGModal" */;
+			buildConfigurationList = 73C8D4F8161F70CA007F378A /* Build configuration list for PBXNativeTarget "KGModalExample" */;
 			buildPhases = (
 				73C8D4D6161F70CA007F378A /* Sources */,
 				73C8D4D7161F70CA007F378A /* Frameworks */,
@@ -114,9 +108,9 @@
 			);
 			dependencies = (
 			);
-			name = KGModal;
+			name = KGModalExample;
 			productName = KGModal;
-			productReference = 73C8D4DA161F70CA007F378A /* KGModal.app */;
+			productReference = 73C8D4DA161F70CA007F378A /* KGModalExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -129,7 +123,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "David Keegan";
 			};
-			buildConfigurationList = 73C8D4D4161F70CA007F378A /* Build configuration list for PBXProject "KGModal" */;
+			buildConfigurationList = 73C8D4D4161F70CA007F378A /* Build configuration list for PBXProject "KGModalExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -141,7 +135,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				73C8D4D9161F70CA007F378A /* KGModal */,
+				73C8D4D9161F70CA007F378A /* KGModalExample */,
 			);
 		};
 /* End PBXProject section */
@@ -151,10 +145,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73C8D4E9161F70CA007F378A /* InfoPlist.strings in Resources */,
-				73C8D4F1161F70CA007F378A /* Default.png in Resources */,
-				73C8D4F3161F70CA007F378A /* Default@2x.png in Resources */,
-				73C8D4F5161F70CA007F378A /* Default-568h@2x.png in Resources */,
+				731C4420161F958600FFF7A2 /* Default-568h@2x.png in Resources */,
+				731C4421161F958600FFF7A2 /* Default.png in Resources */,
+				731C4422161F958600FFF7A2 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,23 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73C8D4EB161F70CA007F378A /* main.m in Sources */,
-				73C8D4EF161F70CA007F378A /* KGAppDelegate.m in Sources */,
+				731C4416161F94B300FFF7A2 /* KGModal.m in Sources */,
+				731C441B161F94C000FFF7A2 /* KGAppDelegate.m in Sources */,
+				731C441C161F94C000FFF7A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		73C8D4E7161F70CA007F378A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				73C8D4E8161F70CA007F378A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		73C8D4F6161F70CA007F378A /* Debug */ = {
@@ -238,10 +221,8 @@
 		73C8D4F9161F70CA007F378A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KGModal/KGModal-Prefix.pch";
-				INFOPLIST_FILE = "KGModal/KGModal-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "KGModalExample-Info.plist";
+				PRODUCT_NAME = KGModalExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -249,10 +230,8 @@
 		73C8D4FA161F70CA007F378A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KGModal/KGModal-Prefix.pch";
-				INFOPLIST_FILE = "KGModal/KGModal-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "KGModalExample-Info.plist";
+				PRODUCT_NAME = KGModalExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -260,7 +239,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		73C8D4D4161F70CA007F378A /* Build configuration list for PBXProject "KGModal" */ = {
+		73C8D4D4161F70CA007F378A /* Build configuration list for PBXProject "KGModalExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73C8D4F6161F70CA007F378A /* Debug */,
@@ -269,13 +248,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73C8D4F8161F70CA007F378A /* Build configuration list for PBXNativeTarget "KGModal" */ = {
+		73C8D4F8161F70CA007F378A /* Build configuration list for PBXNativeTarget "KGModalExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73C8D4F9161F70CA007F378A /* Debug */,
 				73C8D4FA161F70CA007F378A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

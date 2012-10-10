@@ -9,9 +9,10 @@
 #import "KGModal.h"
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const kFadeInAnimationDuration = 0.3;
-static CGFloat const kTransformPart1AnimationDuration = 0.2;
-static CGFloat const kTransformPart2AnimationDuration = 0.1;
+CGFloat const kFadeInAnimationDuration = 0.3;
+CGFloat const kTransformPart1AnimationDuration = 0.2;
+CGFloat const kTransformPart2AnimationDuration = 0.1;
+NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @interface KGModalGradientView : UIView
 @end
@@ -64,13 +65,7 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
 
-    // Needed for iOS 5
-    UITapGestureRecognizer *closeButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAction:)];
-    
     KGModalViewController *viewController = self.viewController = [[KGModalViewController alloc] init];
-    UITapGestureRecognizer *viewControllerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-    [viewControllerTap requireGestureRecognizerToFail:closeButtonTap];
-    [viewController.view addGestureRecognizer:viewControllerTap];
     self.window.rootViewController = viewController;
 
     CGFloat padding = 17;
@@ -87,9 +82,11 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
     [viewController.view addSubview:containerView];
 
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
-    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton addGestureRecognizer:closeButtonTap];    
+    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside]; 
     [containerView addSubview:closeButton];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)
+                                                 name:KGModalGradientViewTapped object:nil];
 
     // The window has to be un-hidden on the main thread
     // This will cause the window to display
@@ -120,15 +117,14 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
     });
 }
 
-- (void)tapAction:(UITapGestureRecognizer *)gestureRecagnizer{
-    CGPoint touchPoint = [gestureRecagnizer locationInView:gestureRecagnizer.view];
-    if(self.tapOutsideToDismiss && !CGRectContainsPoint(self.containerView.frame, touchPoint)){
-        [self closeAction:gestureRecagnizer];
-    }
-}
-
 - (void)closeAction:(id)sender{
     [self hideAnimated:self.animateWhenDismissed];
+}
+
+- (void)tapCloseAction:(id)sender{
+    if(self.tapOutsideToDismiss){
+        [self hideAnimated:self.animateWhenDismissed];
+    }
 }
 
 - (void)hide{
@@ -161,6 +157,7 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
 }
 
 - (void)cleanup{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.containerView removeFromSuperview];
     [self.window removeFromSuperview];
     self.window = nil;
@@ -212,6 +209,10 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
 @end
 
 @implementation KGModalGradientView
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [[NSNotificationCenter defaultCenter] postNotificationName:KGModalGradientViewTapped object:nil];
+}
 
 - (void)drawRect:(CGRect)rect{
     CGContextRef context = UIGraphicsGetCurrentContext();

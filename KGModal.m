@@ -64,8 +64,13 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
 
+    // Needed for iOS 5
+    UITapGestureRecognizer *closeButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAction:)];
+    
     KGModalViewController *viewController = self.viewController = [[KGModalViewController alloc] init];
-    [viewController.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
+    UITapGestureRecognizer *viewControllerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [viewControllerTap requireGestureRecognizerToFail:closeButtonTap];
+    [viewController.view addGestureRecognizer:viewControllerTap];
     self.window.rootViewController = viewController;
 
     CGFloat padding = 17;
@@ -83,6 +88,7 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
 
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton addGestureRecognizer:closeButtonTap];    
     [containerView addSubview:closeButton];
 
     // The window has to be un-hidden on the main thread
@@ -134,22 +140,24 @@ static CGFloat const kTransformPart2AnimationDuration = 0.1;
         [self cleanup];
         return;
     }
-    
-    [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
-        self.viewController.styleView.alpha = 0;
-    }];
 
-    self.containerView.layer.shouldRasterize = YES;
-    [UIView animateWithDuration:kTransformPart2AnimationDuration animations:^{
-        self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
-            self.containerView.alpha = 0;
-            self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
-        } completion:^(BOOL finished2){
-            [self cleanup];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
+            self.viewController.styleView.alpha = 0;
         }];
-    }];
+
+        self.containerView.layer.shouldRasterize = YES;
+        [UIView animateWithDuration:kTransformPart2AnimationDuration animations:^{
+            self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+        } completion:^(BOOL finished){
+            [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+                self.containerView.alpha = 0;
+                self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
+            } completion:^(BOOL finished2){
+                [self cleanup];
+            }];
+        }];
+    });
 }
 
 - (void)cleanup{

@@ -31,6 +31,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) KGModalViewController *viewController;
 @property (weak, nonatomic) KGModalContainerView *containerView;
+@property (weak, nonatomic) KGModalCloseButton *closeButton;
 @property (weak, nonatomic) UIView *contentView;
 @end
 
@@ -52,8 +53,16 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
+    self.showCloseButton = YES;
 
     return self;
+}
+
+- (void)setShowCloseButton:(BOOL)showCloseButton{
+    if(_showCloseButton == showCloseButton){
+        _showCloseButton = showCloseButton;
+        [self.closeButton setHidden:!self.showCloseButton];
+    }
 }
 
 - (void)showWithContentView:(UIView *)contentView{
@@ -81,8 +90,9 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [containerView addSubview:contentView];
     [viewController.view addSubview:containerView];
 
-    KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
-    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside]; 
+    KGModalCloseButton *closeButton = self.closeButton = [[KGModalCloseButton alloc] init];
+    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)

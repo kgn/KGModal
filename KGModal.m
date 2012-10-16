@@ -59,7 +59,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 }
 
 - (void)setShowCloseButton:(BOOL)showCloseButton{
-    if(_showCloseButton == showCloseButton){
+    if(_showCloseButton != showCloseButton){
         _showCloseButton = showCloseButton;
         [self.closeButton setHidden:!self.showCloseButton];
     }

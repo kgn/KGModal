@@ -209,7 +209,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     styleLayer.shadowOpacity = 0.5;
     styleLayer.borderWidth = 1;
     styleLayer.borderColor = [[UIColor whiteColor] CGColor];
-    styleLayer.backgroundColor = [[UIColor colorWithWhite:0 alpha:0.5] CGColor];
+    styleLayer.backgroundColor = [[UIColor colorWithWhite:0 alpha:0.55] CGColor];
     styleLayer.frame = CGRectInset(self.bounds, 12, 12);
     [self.layer addSublayer:styleLayer];
     
@@ -227,7 +227,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 - (void)drawRect:(CGRect)rect{
     CGContextRef context = UIGraphicsGetCurrentContext();
     if([[KGModal sharedInstance] backgroundDisplayStyle] == KGModalBackgroundDisplayStyleSolid){
-        [[UIColor colorWithWhite:0 alpha:0.5] set];
+        [[UIColor colorWithWhite:0 alpha:0.55] set];
         CGContextFillRect(context, self.bounds);
     }else{
         CGContextSaveGState(context);

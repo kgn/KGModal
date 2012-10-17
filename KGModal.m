@@ -30,6 +30,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 @property (weak, nonatomic) KGModalContainerView *containerView;
 @property (weak, nonatomic) KGModalCloseButton *closeButton;
 @property (weak, nonatomic) UIView *contentView;
+@property (strong, nonatomic) id animationDelegate;
 @end
 
 @implementation KGModal
@@ -166,7 +167,9 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         [self cleanup];
         return;
     }
-    
+
+    self.animationDelegate = animation.delegate;
+    animation.delegate = self;
     [self.containerView.layer addAnimation:animation forKey:@"hideAnimation"];
 }
 
@@ -175,6 +178,19 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self.containerView removeFromSuperview];
     [self.window removeFromSuperview];
     self.window = nil;
+}
+
+- (void)animationDidStart:(CAAnimation *)animation{
+    if([self.animationDelegate respondsToSelector:@selector(animationDidStart:)]){
+        [self.animationDelegate animationDidStart:animation];
+    }
+}
+
+- (void)animationDidStop:(CAAnimation *)animation finished:(BOOL)finished{
+    [self cleanup];
+    if([self.animationDelegate respondsToSelector:@selector(animationDidStop:finished:)]){
+        [self.animationDelegate animationDidStop:animation finished:finished];
+    }
 }
 
 @end

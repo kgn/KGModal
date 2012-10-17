@@ -40,10 +40,16 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // Set the content view to display in the modal and whether the modal should animate in
 - (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated;
 
+// Set the content view to display in the modal and the animation to use
+- (void)showWithContentView:(UIView *)contentView andAnimationBlock:(void(^)(UIView *modalView, NSTimeInterval duration))animationBlock;
+
 // Hide the modal with animations
 - (void)hide;
 
 // Hide the modal and whether the modal should animate away
 - (void)hideAnimated:(BOOL)animated;
+
+// Hide the modal and the animation to use
+- (void)hideWithAnimationBlock:(void(^)(UIView *modalView, NSTimeInterval duration))animationBlock;
 
 @end

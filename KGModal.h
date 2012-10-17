@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
     KGModalBackgroundDisplayStyleGradient,
@@ -40,10 +41,16 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // Set the content view to display in the modal and whether the modal should animate in
 - (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated;
 
+// Set the content view to display in the modal and the animation that should be used
+- (void)showWithContentView:(UIView *)contentView andAnimation:(CAAnimation *)animation;
+
 // Hide the modal with animations
 - (void)hide;
 
 // Hide the modal and whether the modal should animate away
 - (void)hideAnimated:(BOOL)animated;
+
+// Hide the modal and the animation that should be used
+- (void)hideAnimation:(CAAnimation *)animation;
 
 @end

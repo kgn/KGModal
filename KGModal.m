@@ -7,11 +7,8 @@
 //
 
 #import "KGModal.h"
-#import <QuartzCore/QuartzCore.h>
 
 CGFloat const kFadeInAnimationDuration = 0.3;
-CGFloat const kTransformPart1AnimationDuration = 0.2;
-CGFloat const kTransformPart2AnimationDuration = 0.1;
 NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @interface KGModalGradientView : UIView
@@ -70,6 +67,29 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 }
 
 - (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated{
+    if(animated){
+        CATransform3D startTransform = CATransform3DMakeScale(0.4, 0.4, 1);
+        CATransform3D middleTransform = CATransform3DMakeScale(1.1, 1.1, 1);
+        CATransform3D endTransform = CATransform3DMakeScale(1, 1, 1);
+        CAKeyframeAnimation *zoomAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+        zoomAnimation.values = @[[NSValue valueWithCATransform3D:startTransform], [NSValue valueWithCATransform3D:middleTransform], [NSValue valueWithCATransform3D:endTransform]];
+
+        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        [fadeAnimation setFromValue:[NSNumber numberWithFloat:0]];
+        [fadeAnimation setToValue:[NSNumber numberWithFloat:1]];
+
+        CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+        animationGroup.animations = @[zoomAnimation, fadeAnimation];
+        animationGroup.duration = kFadeInAnimationDuration;
+        animationGroup.removedOnCompletion = NO;
+
+        [self showWithContentView:contentView andAnimation:animationGroup];
+    }else{
+        [self showWithContentView:contentView andAnimation:nil];
+    }
+}
+
+- (void)showWithContentView:(UIView *)contentView andAnimation:(CAAnimation *)animation{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
@@ -85,10 +105,12 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     KGModalContainerView *containerView = self.containerView = [[KGModalContainerView alloc] initWithFrame:containerViewRect];
     containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|
     UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
-    containerView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     contentView.frame = (CGRect){padding, padding, contentView.bounds.size};
     [containerView addSubview:contentView];
     [viewController.view addSubview:containerView];
+    if(animation){
+        [containerView.layer addAnimation:animation forKey:@"showAnimation"];
+    }
 
     KGModalCloseButton *closeButton = self.closeButton = [[KGModalCloseButton alloc] init];
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -98,32 +120,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)
                                                  name:KGModalGradientViewTapped object:nil];
 
-    // The window has to be un-hidden on the main thread
-    // This will cause the window to display
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.window setHidden:NO];
-        
-        if(animated){
-            viewController.styleView.alpha = 0;
-            [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
-                viewController.styleView.alpha = 1;
-            }];
-
-            containerView.alpha = 0;
-            containerView.layer.shouldRasterize = YES;
-            containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
-            [UIView animateWithDuration:kTransformPart1AnimationDuration animations:^{
-                containerView.alpha = 1;
-                containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:kTransformPart2AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
-                    containerView.alpha = 1;
-                    containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-                } completion:^(BOOL finished2) {
-                    containerView.layer.shouldRasterize = NO;
-                }];
-            }];
-        }
+        [self.window makeKeyAndVisible];
     });
 }
 
@@ -142,28 +140,34 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 }
 
 - (void)hideAnimated:(BOOL)animated{
-    if(!animated){
+    if(animated){
+        CATransform3D startTransform = CATransform3DMakeScale(1, 1, 1);
+        CATransform3D middleTransform = CATransform3DMakeScale(1.1, 1.1, 1);
+        CATransform3D endTransform = CATransform3DMakeScale(0.4, 0.4, 1);
+        CAKeyframeAnimation *zoomAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+        zoomAnimation.values = @[[NSValue valueWithCATransform3D:startTransform], [NSValue valueWithCATransform3D:middleTransform], [NSValue valueWithCATransform3D:endTransform]];
+
+        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        [fadeAnimation setFromValue:[NSNumber numberWithFloat:1]];
+        [fadeAnimation setToValue:[NSNumber numberWithFloat:0]];
+
+        CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+        animationGroup.animations = @[zoomAnimation, fadeAnimation];
+        animationGroup.duration = kFadeInAnimationDuration;
+
+        [self hideAnimation:animationGroup];
+    }else{
+        [self hideAnimation:nil];
+    }
+}
+
+- (void)hideAnimation:(CAAnimation *)animation{
+    if(!animation){
         [self cleanup];
         return;
     }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
-            self.viewController.styleView.alpha = 0;
-        }];
-
-        self.containerView.layer.shouldRasterize = YES;
-        [UIView animateWithDuration:kTransformPart2AnimationDuration animations:^{
-            self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-        } completion:^(BOOL finished){
-            [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
-                self.containerView.alpha = 0;
-                self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
-            } completion:^(BOOL finished2){
-                [self cleanup];
-            }];
-        }];
-    });
+    
+    [self.containerView.layer addAnimation:animation forKey:@"hideAnimation"];
 }
 
 - (void)cleanup{

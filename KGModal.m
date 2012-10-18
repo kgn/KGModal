@@ -18,6 +18,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 @end
 
 @interface KGModalContainerView : UIView
+@property (weak, nonatomic) CALayer *styleLayer;
+@property (strong, nonatomic) UIColor *modalBackgroundColor;
 @end
 
 @interface KGModalCloseButton : UIButton
@@ -54,6 +56,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
     self.showCloseButton = YES;
+    self.modalBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
 
     return self;
 }
@@ -83,6 +86,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     containerViewRect.origin.x = round(CGRectGetMidX(self.window.bounds)-CGRectGetMidX(containerViewRect));
     containerViewRect.origin.y = round(CGRectGetMidY(self.window.bounds)-CGRectGetMidY(containerViewRect));
     KGModalContainerView *containerView = self.containerView = [[KGModalContainerView alloc] initWithFrame:containerViewRect];
+    containerView.modalBackgroundColor = self.modalBackgroundColor;
     containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|
     UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
     containerView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
@@ -173,6 +177,13 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     self.window = nil;
 }
 
+- (void)setModalBackgroundColor:(UIColor *)modalBackgroundColor{
+    if(_modalBackgroundColor != modalBackgroundColor){
+        _modalBackgroundColor = modalBackgroundColor;
+        self.containerView.modalBackgroundColor = modalBackgroundColor;
+    }
+}
+
 @end
 
 @implementation KGModalViewController
@@ -202,18 +213,24 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         return nil;
     }
 
-    CALayer *styleLayer = [[CALayer alloc] init];
+    CALayer *styleLayer = self.styleLayer = [[CALayer alloc] init];
     styleLayer.cornerRadius = 4;
     styleLayer.shadowColor= [[UIColor blackColor] CGColor];
     styleLayer.shadowOffset = CGSizeMake(0, 0);
     styleLayer.shadowOpacity = 0.5;
     styleLayer.borderWidth = 1;
     styleLayer.borderColor = [[UIColor whiteColor] CGColor];
-    styleLayer.backgroundColor = [[UIColor colorWithWhite:0 alpha:0.55] CGColor];
     styleLayer.frame = CGRectInset(self.bounds, 12, 12);
     [self.layer addSublayer:styleLayer];
     
     return self;
+}
+
+- (void)setModalBackgroundColor:(UIColor *)modalBackgroundColor{
+    if(_modalBackgroundColor != modalBackgroundColor){
+        _modalBackgroundColor = modalBackgroundColor;
+        self.styleLayer.backgroundColor = [modalBackgroundColor CGColor];
+    }
 }
 
 @end

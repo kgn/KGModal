@@ -27,6 +27,10 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // Defaults to YES
 @property (nonatomic) BOOL showCloseButton;
 
+// The background color of the modal window
+// Defaults black with 0.5 opacity
+@property (strong, nonatomic) UIColor *modalBackgroundColor;
+
 // The background display style, can be a transparent radial gradient or a transparent black
 // Defaults to gradient, this looks better but takes a bit more time to display on the retina iPad
 @property (nonatomic) enum KGModalBackgroundDisplayStyle backgroundDisplayStyle;

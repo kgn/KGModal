@@ -15,9 +15,17 @@ There are a couple other options but it's purposely designed to be simple and ea
 // Defaults to YES
 @property (nonatomic) BOOL tapOutsideToDismiss;
 
-// Determines if the close button or tapping outside the modal should animate the dismissal
+// Determins if the close button or tapping outside the modal should animate the dismissal
 // Defaults to YES
 @property (nonatomic) BOOL animateWhenDismissed;
+
+// Determins if the close button is shown
+// Defaults to YES
+@property (nonatomic) BOOL showCloseButton;
+
+// The background color of the modal window
+// Defaults black with 0.5 opacity
+@property (strong, nonatomic) UIColor *modalBackgroundColor;
 
 // The background display style, can be a transparent radial gradient or a transparent black
 // Defaults to gradient, this looks better but takes a bit more time to display on the retina iPad

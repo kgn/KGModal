@@ -50,6 +50,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		739DCD921639BBBE00FCD11E /* KGModalExample */ = {
+			isa = PBXGroup;
+			children = (
+				731C4417161F94C000FFF7A2 /* KGAppDelegate.h */,
+				731C4418161F94C000FFF7A2 /* KGAppDelegate.m */,
+				731C441A161F94C000FFF7A2 /* main.m */,
+				73B7BEEE161F95D000024C46 /* Resources */,
+			);
+			name = KGModalExample;
+			sourceTree = "<group>";
+		};
 		73B7BEEE161F95D000024C46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,10 +76,7 @@
 			children = (
 				731C4414161F94B300FFF7A2 /* KGModal.h */,
 				731C4415161F94B300FFF7A2 /* KGModal.m */,
-				731C4417161F94C000FFF7A2 /* KGAppDelegate.h */,
-				731C4418161F94C000FFF7A2 /* KGAppDelegate.m */,
-				731C441A161F94C000FFF7A2 /* main.m */,
-				73B7BEEE161F95D000024C46 /* Resources */,
+				739DCD921639BBBE00FCD11E /* KGModalExample */,
 				73C8D4DD161F70CA007F378A /* Frameworks */,
 				73C8D4DB161F70CA007F378A /* Products */,
 			);

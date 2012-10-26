@@ -173,7 +173,9 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
                 self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
             } completion:^(BOOL finished2){
                 [self cleanup];
-                completion();
+                if(completion){
+                    completion();
+                }
             }];
         }];
     });

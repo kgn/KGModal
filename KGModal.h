@@ -47,7 +47,15 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // Hide the modal with animations
 - (void)hide;
 
+// Hide the modal with animations,
+// run the completion after the modal is hidden
+- (void)hideWithCompletionBlock:(void(^)())completion;
+
 // Hide the modal and whether the modal should animate away
 - (void)hideAnimated:(BOOL)animated;
+
+// Hide the modal and whether the modal should animate away,
+// run the completion after the modal is hidden
+- (void)hideAnimated:(BOOL)animated withCompletionBlock:(void(^)())completion;
 
 @end

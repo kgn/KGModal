@@ -145,7 +145,15 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self hideAnimated:YES];
 }
 
+- (void)hideWithCompletionBlock:(void(^)())completion{
+    [self hideAnimated:YES withCompletionBlock:completion];
+}
+
 - (void)hideAnimated:(BOOL)animated{
+    [self hideAnimated:animated withCompletionBlock:nil];
+}
+
+- (void)hideAnimated:(BOOL)animated withCompletionBlock:(void(^)())completion{
     if(!animated){
         [self cleanup];
         return;
@@ -165,6 +173,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
                 self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
             } completion:^(BOOL finished2){
                 [self cleanup];
+                completion();
             }];
         }];
     });

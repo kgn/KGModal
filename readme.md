@@ -43,8 +43,16 @@ There are a couple other options but it's purposely designed to be simple and ea
 // Hide the modal with animations
 - (void)hide;
 
+// Hide the modal with animations,
+// run the completion after the modal is hidden
+- (void)hideWithCompletionBlock:(void(^)())completion;
+
 // Hide the modal and whether the modal should animate away
 - (void)hideAnimated:(BOOL)animated;
+
+// Hide the modal and whether the modal should animate away,
+// run the completion after the modal is hidden
+- (void)hideAnimated:(BOOL)animated withCompletionBlock:(void(^)())completion;
 ```
 
 Check out the ExampleApp to see it in action!

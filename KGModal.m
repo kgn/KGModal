@@ -52,7 +52,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     if(!(self = [super init])){
         return nil;
     }
-    
+
+    self.shouldRotate = YES;
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
     self.showCloseButton = YES;
@@ -213,6 +214,10 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     styleView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     styleView.opaque = NO;
     [self.view addSubview:styleView];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+    return [[KGModal sharedInstance] shouldRotate];
 }
 
 @end

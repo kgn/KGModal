@@ -31,6 +31,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @interface KGModal()
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow *originalWindow;
 @property (weak, nonatomic) KGModalViewController *viewController;
 @property (weak, nonatomic) KGModalContainerView *containerView;
 @property (weak, nonatomic) KGModalCloseButton *closeButton;
@@ -74,6 +75,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 }
 
 - (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated{
+    self.originalWindow = [[UIApplication sharedApplication] keyWindow];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
@@ -106,6 +108,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     // The window has to be un-hidden on the main thread
     // This will cause the window to display
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.originalWindow resignKeyWindow];
         [self.window makeKeyAndVisible];
         
         if(animated){
@@ -185,7 +188,9 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 - (void)cleanup{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.containerView removeFromSuperview];
+    [self.originalWindow makeKeyWindow];
     [self.window removeFromSuperview];
+    self.originalWindow = nil;
     self.window = nil;
 }
 

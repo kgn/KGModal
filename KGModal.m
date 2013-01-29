@@ -78,15 +78,16 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
 
-    KGModalViewController *viewController = self.viewController = [[KGModalViewController alloc] init];
+    KGModalViewController *viewController = [[KGModalViewController alloc] init];
     self.window.rootViewController = viewController;
+    self.viewController = viewController;
 
     CGFloat padding = 17;
     CGRect containerViewRect = CGRectInset(contentView.bounds, -padding, -padding);
     containerViewRect.origin.x = containerViewRect.origin.y = 0;
     containerViewRect.origin.x = round(CGRectGetMidX(self.window.bounds)-CGRectGetMidX(containerViewRect));
     containerViewRect.origin.y = round(CGRectGetMidY(self.window.bounds)-CGRectGetMidY(containerViewRect));
-    KGModalContainerView *containerView = self.containerView = [[KGModalContainerView alloc] initWithFrame:containerViewRect];
+    KGModalContainerView *containerView = [[KGModalContainerView alloc] initWithFrame:containerViewRect];
     containerView.modalBackgroundColor = self.modalBackgroundColor;
     containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|
     UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
@@ -94,11 +95,13 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     contentView.frame = (CGRect){padding, padding, contentView.bounds.size};
     [containerView addSubview:contentView];
     [viewController.view addSubview:containerView];
-
-    KGModalCloseButton *closeButton = self.closeButton = [[KGModalCloseButton alloc] init];
+    self.containerView = containerView;
+    
+    KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];
+    self.closeButton = closeButton;    
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)
                                                  name:KGModalGradientViewTapped object:nil];
@@ -211,10 +214,11 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     self.view.backgroundColor = [UIColor clearColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
-    KGModalGradientView *styleView = self.styleView = [[KGModalGradientView alloc] initWithFrame:self.view.bounds];
+    KGModalGradientView *styleView = [[KGModalGradientView alloc] initWithFrame:self.view.bounds];
     styleView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     styleView.opaque = NO;
     [self.view addSubview:styleView];
+    self.styleView = styleView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
@@ -230,7 +234,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         return nil;
     }
 
-    CALayer *styleLayer = self.styleLayer = [[CALayer alloc] init];
+    CALayer *styleLayer = [[CALayer alloc] init];
     styleLayer.cornerRadius = 4;
     styleLayer.shadowColor= [[UIColor blackColor] CGColor];
     styleLayer.shadowOffset = CGSizeMake(0, 0);
@@ -239,6 +243,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     styleLayer.borderColor = [[UIColor whiteColor] CGColor];
     styleLayer.frame = CGRectInset(self.bounds, 12, 12);
     [self.layer addSublayer:styleLayer];
+    self.styleLayer = styleLayer;
     
     return self;
 }

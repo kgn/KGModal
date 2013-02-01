@@ -42,6 +42,12 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // The shared instance of the modal
 + (id)sharedInstance;
 
+
+- (void)showWithContentViewController:(UIViewController *)contentView;
+
+- (void)showWithContentViewController:(UIViewController *)contentView andAnimated:(BOOL)animated;
+
+
 // Set the content view to display in the modal and display with animations
 - (void)showWithContentView:(UIView *)contentView;
 

@@ -35,6 +35,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 @property (weak, nonatomic) KGModalContainerView *containerView;
 @property (weak, nonatomic) KGModalCloseButton *closeButton;
 @property (weak, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UIViewController *contentViewController;
+
 @end
 
 @implementation KGModal
@@ -52,13 +54,13 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     if(!(self = [super init])){
         return nil;
     }
-
+    
     self.shouldRotate = YES;
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
     self.showCloseButton = YES;
     self.modalBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-
+    
     return self;
 }
 
@@ -73,15 +75,25 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self showWithContentView:contentView andAnimated:YES];
 }
 
-- (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated{
+- (void)showWithContentViewController:(UIViewController *)contentView {
+    [self setContentViewController:contentView];
+    [self showWithContentView:contentView.view andAnimated:NO];
+}
+
+- (void)showWithContentViewController:(UIViewController *)contentView andAnimated:(BOOL)animated {
+    [self setContentViewController:contentView];
+    [self showWithContentView:contentView.view andAnimated:YES];
+}
+
+- (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.window.opaque = NO;
-
+    
     KGModalViewController *viewController = [[KGModalViewController alloc] init];
     self.window.rootViewController = viewController;
     self.viewController = viewController;
-
+    
     CGFloat padding = 17;
     CGRect containerViewRect = CGRectInset(contentView.bounds, -padding, -padding);
     containerViewRect.origin.x = containerViewRect.origin.y = 0;
@@ -101,11 +113,11 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];
-    self.closeButton = closeButton;    
-
+    self.closeButton = closeButton;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)
                                                  name:KGModalGradientViewTapped object:nil];
-
+    
     // The window has to be un-hidden on the main thread
     // This will cause the window to display
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -116,7 +128,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
             [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
                 viewController.styleView.alpha = 1;
             }];
-
+            
             containerView.alpha = 0;
             containerView.layer.shouldRasterize = YES;
             containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
@@ -162,12 +174,12 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         [self cleanup];
         return;
     }
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
             self.viewController.styleView.alpha = 0;
         }];
-
+        
         self.containerView.layer.shouldRasterize = YES;
         [UIView animateWithDuration:kTransformPart2AnimationDuration animations:^{
             self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
@@ -191,6 +203,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [[[[UIApplication sharedApplication] delegate] window] makeKeyWindow];
     [self.window removeFromSuperview];
     self.window = nil;
+    self.contentViewController = nil;
 }
 
 - (void)setModalBackgroundColor:(UIColor *)modalBackgroundColor{
@@ -210,7 +223,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [UIColor clearColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
@@ -233,7 +246,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     if(!(self = [super initWithFrame:frame])){
         return nil;
     }
-
+    
     CALayer *styleLayer = [[CALayer alloc] init];
     styleLayer.cornerRadius = 4;
     styleLayer.shadowColor= [[UIColor blackColor] CGColor];
@@ -307,17 +320,17 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
-
+    
     //// Color Declarations
     UIColor *topGradient = [UIColor colorWithRed:0.21 green:0.21 blue:0.21 alpha:0.9];
     UIColor *bottomGradient = [UIColor colorWithRed:0.03 green:0.03 blue:0.03 alpha:0.9];
-
+    
     //// Gradient Declarations
     NSArray *gradientColors = @[(id)topGradient.CGColor,
-    (id)bottomGradient.CGColor];
+                                (id)bottomGradient.CGColor];
     CGFloat gradientLocations[] = {0, 1};
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
-
+    
     //// Shadow Declarations
     CGColorRef shadow = [UIColor blackColor].CGColor;
     CGSize shadowOffset = CGSizeMake(0, 1);
@@ -325,23 +338,23 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     CGColorRef shadow2 = [UIColor blackColor].CGColor;
     CGSize shadow2Offset = CGSizeMake(0, 1);
     CGFloat shadow2BlurRadius = 0;
-
-
+    
+    
     //// Oval Drawing
     UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(4, 3, 24, 24)];
     CGContextSaveGState(context);
     [ovalPath addClip];
     CGContextDrawLinearGradient(context, gradient, CGPointMake(16, 3), CGPointMake(16, 27), 0);
     CGContextRestoreGState(context);
-
+    
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow);
     [[UIColor whiteColor] setStroke];
     ovalPath.lineWidth = 2;
     [ovalPath stroke];
     CGContextRestoreGState(context);
-
-
+    
+    
     //// Bezier Drawing
     UIBezierPath *bezierPath = [UIBezierPath bezierPath];
     [bezierPath moveToPoint:CGPointMake(22.36, 11.46)];
@@ -363,15 +376,15 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [[UIColor whiteColor] setFill];
     [bezierPath fill];
     CGContextRestoreGState(context);
-
-
+    
+    
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
-
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     return image;
 }
 

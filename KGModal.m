@@ -31,11 +31,11 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @interface KGModal()
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIViewController *contentViewController;
 @property (weak, nonatomic) KGModalViewController *viewController;
 @property (weak, nonatomic) KGModalContainerView *containerView;
 @property (weak, nonatomic) KGModalCloseButton *closeButton;
 @property (weak, nonatomic) UIView *contentView;
-@property (strong, nonatomic) UIViewController *contentViewController;
 
 @end
 
@@ -75,14 +75,13 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self showWithContentView:contentView andAnimated:YES];
 }
 
-- (void)showWithContentViewController:(UIViewController *)contentView {
-    [self setContentViewController:contentView];
-    [self showWithContentView:contentView.view andAnimated:NO];
+- (void)showWithContentViewController:(UIViewController *)contentViewController{
+    [self showWithContentViewController:contentViewController andAnimated:YES];
 }
 
-- (void)showWithContentViewController:(UIViewController *)contentView andAnimated:(BOOL)animated {
-    [self setContentViewController:contentView];
-    [self showWithContentView:contentView.view andAnimated:YES];
+- (void)showWithContentViewController:(UIViewController *)contentViewController andAnimated:(BOOL)animated{
+    self.contentViewController = contentViewController;
+    [self showWithContentView:contentViewController.view andAnimated:YES];
 }
 
 - (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated {
@@ -202,8 +201,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self.containerView removeFromSuperview];
     [[[[UIApplication sharedApplication] delegate] window] makeKeyWindow];
     [self.window removeFromSuperview];
+    self.contentViewController = nil;    
     self.window = nil;
-    self.contentViewController = nil;
 }
 
 - (void)setModalBackgroundColor:(UIColor *)modalBackgroundColor{
@@ -211,6 +210,10 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         _modalBackgroundColor = modalBackgroundColor;
         self.containerView.modalBackgroundColor = modalBackgroundColor;
     }
+}
+
+- (void)dealloc{
+    [self cleanup];
 }
 
 @end

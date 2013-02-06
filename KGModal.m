@@ -30,9 +30,8 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 @end
 
 @interface KGModal()
-@property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *contentViewController;
-@property (weak, nonatomic) KGModalViewController *viewController;
+@property (strong, nonatomic) KGModalViewController *viewController;
 @property (weak, nonatomic) KGModalContainerView *containerView;
 @property (weak, nonatomic) KGModalCloseButton *closeButton;
 @property (weak, nonatomic) UIView *contentView;
@@ -84,20 +83,17 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     [self showWithContentView:contentViewController.view andAnimated:YES];
 }
 
-- (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.window.opaque = NO;
-    
+- (void)showWithContentView:(UIView *)contentView andAnimated:(BOOL)animated{
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     KGModalViewController *viewController = [[KGModalViewController alloc] init];
-    self.window.rootViewController = viewController;
+    [window addSubview:viewController.view];
     self.viewController = viewController;
     
     CGFloat padding = 17;
     CGRect containerViewRect = CGRectInset(contentView.bounds, -padding, -padding);
     containerViewRect.origin.x = containerViewRect.origin.y = 0;
-    containerViewRect.origin.x = round(CGRectGetMidX(self.window.bounds)-CGRectGetMidX(containerViewRect));
-    containerViewRect.origin.y = round(CGRectGetMidY(self.window.bounds)-CGRectGetMidY(containerViewRect));
+    containerViewRect.origin.x = round(CGRectGetMidX(window.bounds)-CGRectGetMidX(containerViewRect));
+    containerViewRect.origin.y = round(CGRectGetMidY(window.bounds)-CGRectGetMidY(containerViewRect));
     KGModalContainerView *containerView = [[KGModalContainerView alloc] initWithFrame:containerViewRect];
     containerView.modalBackgroundColor = self.modalBackgroundColor;
     containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|
@@ -120,8 +116,6 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     // The window has to be un-hidden on the main thread
     // This will cause the window to display
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.window makeKeyAndVisible];
-        
         if(animated){
             viewController.styleView.alpha = 0;
             [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
@@ -138,7 +132,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
                 [UIView animateWithDuration:kTransformPart2AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
                     containerView.alpha = 1;
                     containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-                } completion:^(BOOL finished2) {
+                } completion:^(BOOL finished2){
                     containerView.layer.shouldRasterize = NO;
                 }];
             }];
@@ -177,6 +171,9 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:kFadeInAnimationDuration animations:^{
             self.viewController.styleView.alpha = 0;
+        } completion:^(BOOL finished){
+            [self.viewController.view removeFromSuperview];
+            self.viewController = nil;
         }];
         
         self.containerView.layer.shouldRasterize = YES;
@@ -199,10 +196,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 - (void)cleanup{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.containerView removeFromSuperview];
-    [[[[UIApplication sharedApplication] delegate] window] makeKeyWindow];
-    [self.window removeFromSuperview];
-    self.contentViewController = nil;    
-    self.window = nil;
+    self.contentViewController = nil;
 }
 
 - (void)setModalBackgroundColor:(UIColor *)modalBackgroundColor{

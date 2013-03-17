@@ -135,7 +135,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
                 containerView.alpha = 1;
                 containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:kTransformPart2AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+                [UIView animateWithDuration:kTransformPart2AnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     containerView.alpha = 1;
                     containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
                 } completion:^(BOOL finished2) {
@@ -183,7 +183,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
         [UIView animateWithDuration:kTransformPart2AnimationDuration animations:^{
             self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
         } completion:^(BOOL finished){
-            [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+            [UIView animateWithDuration:kTransformPart1AnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.containerView.alpha = 0;
                 self.containerView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.4, 0.4);
             } completion:^(BOOL finished2){

@@ -40,7 +40,7 @@ NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 @property (nonatomic) BOOL shouldRotate;
 
 // The shared instance of the modal
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 
 // Set the content view to display in the modal and display with animations

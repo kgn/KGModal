@@ -41,7 +41,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @implementation KGModal
 
-+ (id)sharedInstance{
++ (instancetype)sharedInstance{
     static id sharedInstance;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
@@ -50,7 +50,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     return sharedInstance;
 }
 
-- (id)init{
+- (instancetype)init{
     if(!(self = [super init])){
         return nil;
     }
@@ -245,7 +245,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @implementation KGModalContainerView
 
-- (id)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame{
     if(!(self = [super initWithFrame:frame])){
         return nil;
     }
@@ -304,7 +304,7 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 @implementation KGModalCloseButton
 
-- (id)init{
+- (instancetype)init{
     if(!(self = [super initWithFrame:(CGRect){0, 0, 32, 32}])){
         return nil;
     }

@@ -109,6 +109,11 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     self.containerView = containerView;
     
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
+    if (self.closeButtonToRight) {
+        CGRect closeFrame = closeButton.frame;
+        closeFrame.origin.x = containerView.frame.size.width-padding-closeFrame.size.width/2;
+        closeButton.frame = closeFrame;
+    }
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];

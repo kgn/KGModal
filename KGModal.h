@@ -27,6 +27,11 @@ typedef NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
 // Defaults to YES
 @property (nonatomic) BOOL showCloseButton;
 
+// Determines if position close button to right or left
+// Defaults to NO (means left)
+// This value only works when showCloseButton is YES
+@property (nonatomic) BOOL closeButtonToRight;
+
 // The background color of the modal window
 // Defaults black with 0.5 opacity
 @property (strong, nonatomic) UIColor *modalBackgroundColor;

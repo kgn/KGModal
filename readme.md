@@ -1,3 +1,7 @@
+###Installation via Cocoapods
+
+Add `pod 'KGModal', '~> 0.0.1'` to your `Podfile` and run `pod` to install.
+
 KGModal is an easy drop in control that allows you to display any view in a modal popup. The modal will automatically scale to fit the content view and center it on screen with nice animations!
 
 ![](https://raw.github.com/kgn/KGModal/master/Screenshot.jpg)

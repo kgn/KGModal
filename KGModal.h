@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const KGModalWillShowNotification;
+extern NSString *const KGModalDidShowNotification;
+extern NSString *const KGModalWillHideNotification;
+extern NSString *const KGModalDidHideNotification;
+
 typedef NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
     KGModalBackgroundDisplayStyleGradient,
     KGModalBackgroundDisplayStyleSolid

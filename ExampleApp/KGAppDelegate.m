@@ -29,6 +29,12 @@
     [self.window.rootViewController.view addSubview:showButton];
 
     [self.window makeKeyAndVisible];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShow:) name:KGModalWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didShow:) name:KGModalDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willHide:) name:KGModalWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didHide:) name:KGModalDidHideNotification object:nil];
+
     return YES;
 }
 
@@ -65,6 +71,22 @@
     [contentView addSubview:infoLabel];
 
     [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
+}
+
+- (void)willShow:(NSNotification *)notification{
+    NSLog(@"will show");
+}
+
+- (void)didShow:(NSNotification *)notification{
+    NSLog(@"did show");
+}
+
+- (void)willHide:(NSNotification *)notification{
+    NSLog(@"will hide");
+}
+
+- (void)didHide:(NSNotification *)notification{
+    NSLog(@"did hide");
 }
 
 @end

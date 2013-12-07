@@ -241,6 +241,10 @@ NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
     return [[KGModal sharedInstance] shouldRotate];
 }
 
+- (BOOL)shouldAutorotate{
+    return [[KGModal sharedInstance] shouldRotate];
+}
+
 @end
 
 @implementation KGModalContainerView

@@ -56,3 +56,7 @@ There are a couple other options but it's purposely designed to be simple and ea
 ```
 
 Check out the ExampleApp to see it in action!
+
+###Installation via Cocoapods
+
+Add `pod 'KGModal', '~> 0.0.1'` to your `Podfile` and run `pod` to install.

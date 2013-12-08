@@ -63,6 +63,7 @@ NSString *const KGModalDidHideNotification = @"KGModalDidHideNotification";
     self.shouldRotate = YES;
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
+    self.closeButtonLocation = KGModalCloseButtonLocationLeft;
     self.showCloseButton = YES;
     self.modalBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     
@@ -114,6 +115,13 @@ NSString *const KGModalDidHideNotification = @"KGModalDidHideNotification";
     self.containerView = containerView;
     
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
+    
+    if (self.closeButtonLocation == KGModalCloseButtonLocationRight) {
+        CGRect closeFrame = closeButton.frame;
+        closeFrame.origin.x = containerView.frame.size.width - padding - closeFrame.size.width/2;
+        closeButton.frame = closeFrame;
+    }
+    
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];

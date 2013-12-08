@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5C978CE1-221A-4169-AF81-B64C6BBF112C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KGModalExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FB6C026C-C1C4-455C-BA11-CFF8C0912A70</key>
+		<string>https://github.com/kgn/KGModal.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ExampleApp/KGModalExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FB6C026C-C1C4-455C-BA11-CFF8C0912A70</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kgn/KGModal.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FB6C026C-C1C4-455C-BA11-CFF8C0912A70</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FB6C026C-C1C4-455C-BA11-CFF8C0912A70</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KGModal</string>
+		</dict>
+	</array>
+</dict>
+</plist>

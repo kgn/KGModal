@@ -116,9 +116,9 @@ NSString *const KGModalDidHideNotification = @"KGModalDidHideNotification";
     
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
     
-    if (self.closeButtonLocation == KGModalCloseButtonLocationRight) {
+    if(self.closeButtonLocation == KGModalCloseButtonLocationRight){
         CGRect closeFrame = closeButton.frame;
-        closeFrame.origin.x = containerView.frame.size.width - padding - closeFrame.size.width/2;
+        closeFrame.origin.x = CGRectGetWidth(containerView.bounds)-CGRectGetWidth(closeFrame);
         closeButton.frame = closeFrame;
     }
     

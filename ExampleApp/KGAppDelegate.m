@@ -70,6 +70,7 @@
     infoLabel.shadowOffset = CGSizeMake(0, 1);
     [contentView addSubview:infoLabel];
 
+//    [[KGModal sharedInstance] setCloseButtonLocation:KGModalCloseButtonLocationRight];
     [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
 }
 

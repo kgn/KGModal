@@ -19,14 +19,9 @@ There are a couple other options but it's purposely designed to be simple and ea
 // Defaults to YES
 @property (nonatomic) BOOL animateWhenDismissed;
 
-// Determins if the close button is shown
-// Defaults to YES
-@property (nonatomic) BOOL showCloseButton;
-
-// Determines if position close button to right or left
-// Defaults to NO (means left)
-// This value only works when showCloseButton is YES
-@property (nonatomic) BOOL closeButtonToRight;
+// Determins close button type (None/Left/Right)
+// Defaults to Left
+@property (nonatomic) KGModalCloseButtonType closeButtonType;
 
 // The background color of the modal window
 // Defaults black with 0.5 opacity

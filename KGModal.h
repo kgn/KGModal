@@ -18,9 +18,10 @@ typedef NS_ENUM(NSUInteger, KGModalBackgroundDisplayStyle){
     KGModalBackgroundDisplayStyleSolid
 };
 
-typedef NS_ENUM(NSUInteger, KGModalCloseButtonLocation){
-    KGModalCloseButtonLocationLeft,
-    KGModalCloseButtonLocationRight
+typedef NS_ENUM(NSUInteger, KGModalCloseButtonType){
+    KGModalCloseButtonTypeNone,
+    KGModalCloseButtonTypeLeft,
+    KGModalCloseButtonTypeRight
 };
 
 @interface KGModal : NSObject
@@ -33,13 +34,9 @@ typedef NS_ENUM(NSUInteger, KGModalCloseButtonLocation){
 // Defaults to YES
 @property (nonatomic) BOOL animateWhenDismissed;
 
-// Determines if the close button is shown
-// Defaults to YES
-@property (nonatomic) BOOL showCloseButton;
-
-// Determines whether close button will display on the left or right
-// Defaults to left
-@property (nonatomic) KGModalCloseButtonLocation closeButtonLocation;
+// Determins close button type (None/Left/Right)
+// Defaults to Left
+@property (nonatomic) KGModalCloseButtonType closeButtonType;
 
 // The background color of the modal window
 // Defaults black with 0.5 opacity

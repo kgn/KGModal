@@ -12,6 +12,8 @@
 CGFloat const kFadeInAnimationDuration = 0.3;
 CGFloat const kTransformPart1AnimationDuration = 0.2;
 CGFloat const kTransformPart2AnimationDuration = 0.1;
+CGFloat const kDefaultCloseButtonPadding = 17.0;
+
 NSString *const KGModalGradientViewTapped = @"KGModalGradientViewTapped";
 
 NSString *const KGModalWillShowNotification = @"KGModalWillShowNotification";
@@ -63,17 +65,26 @@ NSString *const KGModalDidHideNotification = @"KGModalDidHideNotification";
     self.shouldRotate = YES;
     self.tapOutsideToDismiss = YES;
     self.animateWhenDismissed = YES;
-    self.closeButtonLocation = KGModalCloseButtonLocationLeft;
-    self.showCloseButton = YES;
+    self.closeButtonType = KGModalCloseButtonTypeLeft;
     self.modalBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     
     return self;
 }
 
-- (void)setShowCloseButton:(BOOL)showCloseButton{
-    if(_showCloseButton != showCloseButton){
-        _showCloseButton = showCloseButton;
-        [self.closeButton setHidden:!self.showCloseButton];
+-(void)setCloseButtonType:(KGModalCloseButtonType)closeButtonType {
+    _closeButtonType = closeButtonType;
+    if(closeButtonType == KGModalCloseButtonTypeNone){
+        [self.closeButton setHidden:YES];
+    }else{
+        [self.closeButton setHidden:NO];
+        
+        CGRect closeFrame = self.closeButton.frame;
+        if(closeButtonType == KGModalCloseButtonTypeRight){
+            closeFrame.origin.x = round(CGRectGetWidth(self.containerView.frame)-kDefaultCloseButtonPadding-CGRectGetWidth(closeFrame)/2);
+        }else{
+            closeFrame.origin.x = 0;
+        }
+        self.closeButton.frame = closeFrame;
     }
 }
 
@@ -116,16 +127,18 @@ NSString *const KGModalDidHideNotification = @"KGModalDidHideNotification";
     
     KGModalCloseButton *closeButton = [[KGModalCloseButton alloc] init];
     
-    if(self.closeButtonLocation == KGModalCloseButtonLocationRight){
+    if(self.closeButtonType == KGModalCloseButtonTypeRight){
         CGRect closeFrame = closeButton.frame;
         closeFrame.origin.x = CGRectGetWidth(containerView.bounds)-CGRectGetWidth(closeFrame);
         closeButton.frame = closeFrame;
     }
     
     [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setHidden:!self.showCloseButton];
     [containerView addSubview:closeButton];
     self.closeButton = closeButton;
+    
+    // Force adjust visibility and placing
+    [self setCloseButtonType:self.closeButtonType];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tapCloseAction:)
                                                  name:KGModalGradientViewTapped object:nil];

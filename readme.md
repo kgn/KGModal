@@ -19,9 +19,9 @@ There are a couple other options but it's purposely designed to be simple and ea
 // Defaults to YES
 @property (nonatomic) BOOL animateWhenDismissed;
 
-// Determines if the close button is shown
-// Defaults to YES
-@property (nonatomic) BOOL showCloseButton;
+// Determins close button type (None/Left/Right)
+// Defaults to Left
+@property (nonatomic) KGModalCloseButtonType closeButtonType;
 
 // Determines whether close button will display on the left or right
 // Defaults to left
